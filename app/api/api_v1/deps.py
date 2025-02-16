@@ -3,6 +3,7 @@ from odmantic import ObjectId
 from typing import AsyncGenerator
 from db.engine import engine
 from fastapi import Depends, HTTPException, status
+from interfaces import Machine
 import models
 import crud
 
@@ -30,3 +31,9 @@ async def get_probe(db: AIOSession = Depends(get_db), *, id: ObjectId) -> models
             status_code=status.HTTP_404_NOT_FOUND, detail=f"Probe {id} does not exist"
         )
     return probe_db
+
+
+async def get_machine_iface(
+    machine_db: models.Machine = Depends(get_machine),
+) -> Machine:
+    return Machine(machine_db)

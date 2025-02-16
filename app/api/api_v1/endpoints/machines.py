@@ -59,10 +59,10 @@ async def delete_machine(
     db: AIOSession = Depends(deps.get_db),
     *,
     id: ObjectId,
-    machine_db: models.Machine = Depends(deps.get_machine)
+    machine_int: Machine = Depends(deps.get_machine_iface)
 ):
-    imachine = Machine(machine_db)
-    return await imachine.delete(db)
+
+    return await machine_int.delete(db)
 
 
 @router.post(
@@ -74,12 +74,12 @@ async def add_probe_to_machine(
     db: AIOSession = Depends(deps.get_db),
     *,
     id: ObjectId,
-    machine_db: models.Machine = Depends(deps.get_machine),
-    new_probe: schemas.ProbeCreate
+    new_probe: schemas.ProbeCreate,
+    machine_int: Machine = Depends(deps.get_machine_iface)
 ):
-    imachine = Machine(machine_db)
+
     try:
-        return await imachine.add_probe(db, probe=new_probe)
+        return await machine_int.add_probe(db, probe=new_probe)
     except ProbeDuplicated as e:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(e))
 
@@ -100,3 +100,14 @@ async def get_machine_probes(
     machine.probes = probes_db
 
     return machine
+
+
+@router.post("/{id}/metric", response_model=schemas.Metric)
+async def add_metric(
+    db: AIOSession = Depends(deps.get_db),
+    *,
+    id: ObjectId,
+    machine_iface: Machine = Depends(deps.get_machine_iface),
+    new_metric: schemas.MetricCreate
+):
+    return machine_iface._model
