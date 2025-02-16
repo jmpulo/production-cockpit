@@ -23,5 +23,5 @@ class Machine:
 
     async def delete(self, db: AIOSession) -> models.Machine:
         machine_db = await crud.machine.remove(db, db_obj=self._model)
-        await crud.probe.delete_by_machine_id(db, machine_id=machine_db.id)
+        await crud.probe.remove_by_machine_id(db, machine_id=machine_db.id)
         return machine_db

@@ -22,7 +22,7 @@ class CRUDProbe(CRUDBase[models.Probe, schemas.ProbeCreate, schemas.ProbeUpdate]
     ) -> list[models.Probe]:
         return await db.find(self.model, self.model.machine_id == machine_id)
 
-    async def delete_by_machine_id(
+    async def remove_by_machine_id(
         self, db: AIOSession, *, machine_id: ObjectId
     ) -> None:
         orphan_probes = await db.find(self.model, self.model.machine_id == machine_id)

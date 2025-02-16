@@ -21,3 +21,12 @@ async def get_machine(
             status_code=status.HTTP_404_NOT_FOUND, detail=f"Machine {id} does not exist"
         )
     return machine_db
+
+
+async def get_probe(db: AIOSession = Depends(get_db), *, id: ObjectId) -> models.Probe:
+    probe_db = await crud.probe.get(db, id=id)
+    if not probe_db:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=f"Probe {id} does not exist"
+        )
+    return probe_db
