@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from odmantic import ObjectId
 from typing import Optional
 from typing import Literal, ClassVar
+from .metric import Metric
 
 
 class ProbeBase(BaseModel):
@@ -27,3 +28,7 @@ class ProbeInDBBase(ProbeBase):
 
 class Probe(ProbeInDBBase):
     machine_id: ClassVar[ObjectId]
+
+
+class ProbeMetrics(Probe):
+    metrics: list[Metric]

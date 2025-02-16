@@ -5,12 +5,12 @@ from typing import Union, ClassVar
 
 
 class MetricBase(BaseModel):
-    probe_id: Optional[ObjectId] = None
+    probe_name: Optional[str] = None
     value: Optional[Union[float, int, str]] = None
 
 
 class MetricCreate(MetricBase):
-    probe_name: Optional[str]
+    probe_name: str
     value: Union[float, int, str]
 
 
@@ -23,4 +23,4 @@ class MetricInDBBase(MetricBase):
 
 
 class Metric(MetricInDBBase):
-    probe_id: ClassVar[ObjectId]
+    pass
