@@ -17,5 +17,7 @@ async def get_machine(
 ) -> models.Machine:
     machine_db = await crud.machine.get(db, id=id)
     if not machine_db:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=f"Machine {id} does not exist"
+        )
     return machine_db

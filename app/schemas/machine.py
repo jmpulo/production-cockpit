@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from odmantic import ObjectId
 from typing import Optional
+from .probe import Probe
 
 
 class MachineBase(BaseModel):
@@ -22,3 +23,7 @@ class MachineInDBBase(MachineBase):
 
 class Machine(MachineInDBBase):
     pass
+
+
+class MachineProbes(Machine):
+    probes: list[Probe] = []
