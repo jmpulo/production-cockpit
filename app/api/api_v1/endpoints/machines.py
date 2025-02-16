@@ -3,18 +3,13 @@ from odmantic.session import AIOSession
 from api.api_v1 import deps
 import schemas
 import crud
-from db.engine import engine
-import models
 
 router = APIRouter()
 
 
 @router.get("/", response_model=list[schemas.Machine])
 async def get_machines(db: AIOSession = Depends(deps.get_db)):
-    # return await crud.machine.get_multi(db)
-    async with engine.session() as session:
-        machines = await session.find(models.Machine)
-    return machines
+    return await crud.machine.get_multi(db)
 
 
 @router.post("/", response_model=schemas.Machine)
