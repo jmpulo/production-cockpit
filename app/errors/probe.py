@@ -7,3 +7,7 @@ class ProbeException(CockpitException):
 
 class ProbeDuplicated(ProbeException):
     pass
+
+
+class ProbeNotExist(ProbeException):
+    pass

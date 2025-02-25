@@ -110,4 +110,4 @@ async def add_metric(
     machine_iface: Machine = Depends(deps.get_machine_iface),
     new_metric: schemas.MetricCreate
 ):
-    return machine_iface._model
+    return await machine_iface.add_metric(db, metric=new_metric)
