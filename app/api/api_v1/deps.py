@@ -37,3 +37,14 @@ async def get_machine_iface(
     machine_db: models.Machine = Depends(get_machine),
 ) -> Machine:
     return Machine(machine_db)
+
+
+async def get_metric(
+    db: AIOSession = Depends(get_db), *, id: ObjectId
+) -> models.Metric:
+    metric_db = await crud.metric.get(db, id=id)
+    if not metric_db:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=f"Metric {id} does not exist"
+        )
+    return metric_db

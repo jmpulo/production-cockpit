@@ -9,7 +9,7 @@ import crud
 router = APIRouter()
 
 
-@router.get("/", response_model=schemas.Probe)
+@router.get("/{id}", response_model=schemas.Probe)
 async def get_probe(
     db: AIOSession = Depends(deps.get_db),
     *,
