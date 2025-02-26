@@ -65,7 +65,7 @@ async def delete_machine(
     return await machine_int.delete(db)
 
 
-@router.post(
+@router.patch(
     "/{id}/probe",
     response_model=schemas.Probe,
     description="Adds a new probe to an existing machine",
@@ -102,7 +102,7 @@ async def get_machine_probes(
     return machine
 
 
-@router.post("/{id}/metric", response_model=schemas.Metric)
+@router.patch("/{id}/metric", response_model=schemas.Metric)
 async def add_metric(
     db: AIOSession = Depends(deps.get_db),
     *,
