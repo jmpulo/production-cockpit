@@ -3,7 +3,7 @@ import type { IndexSignature } from "../types/global";
 
 interface IfetchBackend {
   path: string;
-  method?: string;
+  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   data?: any;
   headers?: IndexSignature;
   checkError?: boolean;
